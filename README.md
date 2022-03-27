@@ -25,6 +25,8 @@ Running analysis on  src
 common.utils                                    -> utils, u
 ```
 
+> *Real world example*: https://github.com/metabase/metabase/issues/19930#issuecomment-1079935010
+
 [WIP] add an option for the script to ask user to select which alias to stick
 to, and then output a clj-kondo compatible `:consistent-alias` map
 
