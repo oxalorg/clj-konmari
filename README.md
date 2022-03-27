@@ -18,7 +18,12 @@ aliases.
 Eg: `one.clj` has a namespace require like `[common.utils :as utils]` and
 `two.clj` has the same require but aliased like `[common.utils :as u]`
 
-The script will detect this and print out.
+The script will detect this and print out, like so:
+
+```
+Running analysis on  src
+common.utils                                    -> utils, u
+```
 
 [WIP] add an option for the script to ask user to select which alias to stick
 to, and then output a clj-kondo compatible `:consistent-alias` map
