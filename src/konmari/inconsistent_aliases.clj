@@ -3,7 +3,12 @@
             [clojure.java.io :as io]
             [clojure.string :as str]))
 
-(defn all-requires [f]
+(defn all-requires
+  "Parses and returns all require forms in a file
+  eg: '[[clojure.string :as str]
+        [...]
+        ...]"
+  [f]
   (let [zroot (z/of-file f)
         require-form (-> zroot
                          (z/find-value z/next :require)
@@ -12,7 +17,14 @@
         z/sexpr
         rest)))
 
-(defn require->map [req]
+(defn require->map
+  "Converts a require form into a map.
+  Eg: `'[clojure.string :as str :refer [join] :as-alias str]`
+  will return `{:ns clojure.string
+                :as str
+                :refer [join]
+                :as-alias str}`"
+  [req]
   (when (vector? req)
     (let [parts (partition 2 (rest req))]
       (merge
@@ -21,8 +33,7 @@
              (mapv vec parts))))))
 
 (defn all-requires->map [f]
-  (for [req (all-requires f)]
-    (require->map req)))
+  (map require->map (all-requires f)))
 
 (defn requires-data [files]
   (->> files
@@ -36,7 +47,9 @@
               (when (> (count unique-aliases) 1)
                 [ns unique-aliases])))))
 
-(defn find-files-recursively [dir]
+(defn find-files-recursively
+  "Finds all `.clj` files recursively in dir"
+  [dir]
   (->> (tree-seq #(.isDirectory %)
                  #(.listFiles %)
                  (io/file dir))
