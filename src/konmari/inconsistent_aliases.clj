@@ -1,4 +1,4 @@
-(ns konmari.list-mismatched-aliases
+(ns konmari.inconsistent-aliases
   (:require [rewrite-clj.zip :as z]
             [clojure.java.io :as io]
             [clojure.string :as str]))
