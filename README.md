@@ -10,6 +10,10 @@ Kondo*
 
 > Marie Kondo, also known as Konmari, is a Japanese organizing consultant, author, and TV show host. Kondo has written four books on organizing, which have collectively sold millions of copies around the world.
 
+## Youtube Video
+
+I recorded my screen while building this, if you're curious check it out here: https://www.youtube.com/watch?v=bf8KLKkCH2g
+
 ## Inconsistent aliases
 
 This script will detect all namespace require forms which have inconsistent
@@ -69,8 +73,6 @@ bb inconsistent_aliases.clj src
 ```bash
 bb inconsistent_aliases.clj --choose src
 ```
-
-If you want 
 
 ## More ideas
 
