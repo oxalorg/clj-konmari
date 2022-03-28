@@ -39,15 +39,15 @@ Running analysis on  src
   1/85  metabase.automagic-dashboards.populate
     1: magic.populate
     2: populate
-    3[ignore]
-    4[custom]
+    3: [ignore]
+    4: [custom]
 Choose: 1
 ~~~
   2/85  metabase.models.setting.cache
     1: setting.cache
     2: cache
-    3[ignore]
-    4[custom]
+    3: [ignore]
+    4: [custom]
 Choose: 4
 Enter a custom alias: cash
 ```

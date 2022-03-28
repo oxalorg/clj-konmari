@@ -101,8 +101,8 @@
                              duplicates)
             choices-count (count aliases-choices)]
         (println (str/join "\n" aliases-choices))
-        (println (str "    " (+ 1 choices-count) "[ignore]"))
-        (println (str "    " (+ 2 choices-count) "[custom]"))
+        (println (str "    " (+ 1 choices-count) ": [ignore]"))
+        (println (str "    " (+ 2 choices-count) ": [custom]"))
         (print "Choose: ")
         (flush)
         (let [user-choice (read-int-from-user (+ 2 choices-count))]
