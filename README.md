@@ -34,7 +34,7 @@ common.utils                                    -> utils, u
 Optionally you can also choose preferred aliases for all of the above entries and output a `clj-kondo` compatible edn to `preferred_aliases.edn` file in the current directory (default not configurable atm). It will look like this:
 
 ```
-➜  metabase git:(master) ✗ bb inconsistent_aliases.clj -c src
+➜  metabase git:(master) ✗ bb inconsistent_aliases.clj --choose src
 Running analysis on  src
   1/85  metabase.automagic-dashboards.populate
     1: magic.populate
@@ -50,6 +50,13 @@ Choose: 1
     4: [custom]
 Choose: 4
 Enter a custom alias: cash
+```
+
+once all 85 preferred aliases are added, a file will be created, which is compatible with clj-kondo `[:consistent-alias :aliases]` config:
+
+```
+➜  metabase git:(master) ✗ cat preferred_aliases.edn
+{metabase.automagic-dashboards.populate magic.populate, metabase.models.setting.cache cache, metabase.db.metadata-queries wowow, metabase.query-processor.util qputil}
 ```
 
 #### Install
