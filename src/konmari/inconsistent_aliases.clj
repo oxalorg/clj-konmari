@@ -93,7 +93,7 @@
   (let [final (find-inconsistent-aliases dir)
         preferred-aliases (atom {})
         total (count final)]
-    (doseq [[idx [ns duplicates]] (map-indexed vector final)]
+    (doseq [[idx [ns duplicates]] (take 5 (map-indexed vector final))]
       (println (format "%3d/%-3d %-70s" (inc idx) total ns))
       (let [aliases (vec duplicates)
             aliases-choices (map-indexed
@@ -117,7 +117,7 @@
                          (do
                            (print "Enter a custom alias: ")
                            (flush)
-                           (swap! preferred-aliases assoc ns (read-line))))])
+                           (swap! preferred-aliases assoc ns (symbol (read-line)))))])
           (println "~~~"))))
     (spit "preferred_aliases.edn" @preferred-aliases)))
 
