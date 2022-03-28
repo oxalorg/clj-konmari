@@ -27,8 +27,26 @@ common.utils                                    -> utils, u
 
 > *Real world example*: https://github.com/metabase/metabase/issues/19930#issuecomment-1079935010
 
-[WIP] add an option for the script to ask user to select which alias to stick
-to, and then output a clj-kondo compatible `:consistent-alias` map
+Optionally you can also choose preferred aliases for all of the above entries and output a `clj-kondo` compatible edn to `preferred_aliases.edn` file in the current directory (default not configurable atm). It will look like this:
+
+```
+➜  metabase git:(master) ✗ bb inconsistent_aliases.clj -c src
+Running analysis on  src
+  1/85  metabase.automagic-dashboards.populate
+    1: magic.populate
+    2: populate
+    3[ignore]
+    4[custom]
+Choose: 1
+~~~
+  2/85  metabase.models.setting.cache
+    1: setting.cache
+    2: cache
+    3[ignore]
+    4[custom]
+Choose: 4
+Enter a custom alias: cash
+```
 
 #### Install
 
@@ -38,11 +56,21 @@ wget https://raw.githubusercontent.com/oxalorg/clj-konmari/main/src/konmari/inco
 
 #### Run
 
+*Only print out inconsistent aliases*:
+
 ```bash
 # make sure you have babashka installed
 # src can be replaced by any directory
 bb inconsistent_aliases.clj src
 ```
+
+*Choose preferred aliases and output clj-kondo compatible edn*:
+
+```bash
+bb inconsistent_aliases.clj --choose src
+```
+
+If you want 
 
 ## More ideas
 
