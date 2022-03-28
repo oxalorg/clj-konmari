@@ -84,3 +84,5 @@ bb inconsistent_aliases.clj --choose src
 ## More ideas
 
 Have more ideas on how we can automate improving of clojure codebases? Create an issue please!
+
+- [ ] automatically refactor inconsistent aliases based on which was chosen
