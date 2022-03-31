@@ -67,7 +67,7 @@
       find-mismatched-aliases))
 
 (defn print-inconsistent-aliases [dir]
-  (println "Running analysis on " dir)
+  (println "Running analysis on" dir)
   (let [final (find-inconsistent-aliases dir)]
     (doseq [[ns duplicates] final]
       (println
@@ -81,7 +81,7 @@
                     (throw (Exception.)))
                   val)
                 (catch Exception _
-                  (println "Please select one of the above options. Try again: ")
+                  (println "Please select one of the above options. Try again:")
                   (flush)
                   nil))]
       (if val
@@ -89,7 +89,7 @@
         (recur (read-line))))))
 
 (defn choose-preferred-aliases [dir]
-  (println "Running analysis on " dir)
+  (println "Running analysis on" dir)
   (let [final (find-inconsistent-aliases dir)
         preferred-aliases (atom {})
         total (count final)]
