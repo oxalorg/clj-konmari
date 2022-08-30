@@ -71,7 +71,8 @@
   (let [final (find-inconsistent-aliases dir)]
     (doseq [[ns duplicates] final]
       (println
-       (format "%-50s -> %s" ns (str/join ", " duplicates))))))
+       (format "%-50s -> %s" ns (str/join ", " duplicates))))
+    (count final)))
 
 (defn read-int-from-user [choices-count]
   (loop [input (read-line)]
@@ -123,7 +124,8 @@
 
 (def cli-opts
   [["-c" "--choose" "Choose preferred alias and output a kondo config"]
-   ["-h" "--help"]])
+   ["-h" "--help"]
+   [nil "--ci" "Return with non-zero status if inconsistent aliases are found"]])
 
 (defn get-opts [args]
   (cli/parse-opts args cli-opts))
@@ -152,13 +154,22 @@
       :else ; failed custom validation => exit with usage summary
       {:exit-message (usage summary)})))
 
-(defn -main [& args]
+(defn -main
+  [& args]
   (let [{:keys [dir options exit-message ok?]} (validate-args args)]
-    (if exit-message
+    (cond
+      exit-message ;; Validation failed
       (exit (if ok? 0 1) exit-message)
-      (if (:choose options)
-        (choose-preferred-aliases dir)
-        (print-inconsistent-aliases dir)))))
+      (:choose options) ;; Manually checking overrides ci
+      (choose-preferred-aliases dir)
+      (:ci options) ;; Running from ci so exit with status
+      (let [cnt (print-inconsistent-aliases dir)
+            msg (if (pos? cnt)
+                  (format "\n%s inconsistent aliases found, exiting with non-zero status" cnt)
+                  "\n0 inconsistent aliases found")]
+        (exit cnt msg))
+      :else ;; Running as dev
+      (do (print-inconsistent-aliases dir) nil))))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (apply -main *command-line-args*))
